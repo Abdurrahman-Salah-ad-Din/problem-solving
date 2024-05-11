@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        vector<int> subarray;
+        int res = numeric_limits<int>::max();
+        int sum = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            subarray.push_back(nums[i]);
+            while(sum >= target) {
+                res = min(res, int(subarray.size()));
+                sum -= subarray[0];
+                subarray.erase(subarray.begin());
+            }
+        }
+        if(subarray.size() == nums.size()) return 0;
+        return res;
+    }
+};
