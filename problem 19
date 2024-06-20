@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        vector<string> pairs;
+        vector<string> res;
+        unordered_map<string, int> freqMap;
+        for (int i = 0; i + 10 <= s.length(); i++) {
+            pairs.push_back(s.substr(i, 10));
+            if(freqMap[pairs[i]] == 1) {
+                res.push_back(pairs[i]);
+            }
+            freqMap[pairs[i]]++;
+        }
+        return res;
+    }
+};
