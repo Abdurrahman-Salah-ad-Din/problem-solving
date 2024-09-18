@@ -1,0 +1,37 @@
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        string ans = "", s = "", ms = "", mss = "", sms = "";
+        bool allz = true;
+        int m, c;
+        for(int i = 0; i < nums.size(); i++) {
+            if(nums[i] != 0) {
+                allz = false;
+                break;
+            }
+        }
+        if (allz) {
+            return to_string(0);
+        }
+        while(nums.size() != 0) {
+            c = 0;
+            m = nums[0];
+            for (int i = 1; i < nums.size(); i++) {
+                s = to_string(nums[i]);
+                ms = to_string(m);
+                mss = "";
+                sms = "";
+                mss = ms + s;
+                sms = s + ms;
+                if(mss.compare(sms) < 0) {
+                    m = nums[i];
+                    c = i;
+                }
+            }
+            ans.append(to_string(m));
+            nums.erase(nums.begin() + c);
+        }
+
+        return ans;
+    }
+};
