@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> findMissingAndRepeatedValues(vector<vector<int>>& grid) {
+        vector<int> res(2);
+        unordered_map<int, int> freq;
+        int size = grid[0].size() * grid[0].size();
+        for (int i = 0; i < grid[0].size(); i++) {
+            for (int j = 0; j < grid[i].size(); j++) {
+                freq[grid[i][j]] += 1;
+            }
+        }
+        for (int i = 1; i <= size; i++) {
+            if (freq[i] == 0) {
+                res[1] = i;
+            } else if (freq[i] == 2) {
+                res[0] = i;
+            }
+        }
+        return res;
+    }
+};
