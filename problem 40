@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<int> closestPrimes(int left, int right) {
+        int num1 = -1, num2 = -1, min = 2147483647;
+        vector<int> primes;
+        for (int i = left; i <= right; i++) {
+            if (isPrime(i)) {
+                primes.push_back(i);
+            }
+        }
+        for (int i = 0; i < int(primes.size()) - 1; i++) {
+            if (primes[i + 1] - primes[i] < min) {
+                min = primes[i + 1] - primes[i];
+                num1 = primes[i];
+                num2 = primes[i + 1];
+            }
+        }
+        return {num1, num2};
+    }
+private:
+    bool isPrime(int value) {
+        if (value == 2)
+            return true;
+        if (value % 2 == 0 || value == 1)
+            return false;
+        for(int i = 3; i * i <= value; i+=2) {
+            if (value % i == 0)
+                return false;
+        }
+        return true;
+    }
+};
