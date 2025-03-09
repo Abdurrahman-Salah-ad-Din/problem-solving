@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int numberOfAlternatingGroups(vector<int>& colors, int k) {
+        int res = 0, n = colors.size(), inc = 0;
+        bool is_next_red = true, is_next_blue = true;
+        for (int i = 0; i < n + k - 1; i++) {
+            if (colors[i % n] == 1 && is_next_red) {
+                is_next_red = false;
+                is_next_blue = true;
+                inc++;
+            } else if (colors[i % n] == 0 && is_next_blue) {
+                is_next_red = true;
+                is_next_blue = false;
+                inc++;
+            } else {
+                inc = 0;
+                i--;
+                is_next_red = true;
+                is_next_blue = true;
+                continue;
+            }
+            if (inc >= k) {
+                res++;
+            }
+        }
+        return res;
+    }
+};
