@@ -1,0 +1,36 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    long long totalTreeSum = 0;
+    long long maxproductSum = -1;
+    const long long MOD = 1'000'000'007;
+    vector<int> treeSums;
+    int getTreeSum(TreeNode* root) {
+        if (root == NULL) {
+            return 0;
+        }
+        int leftTreeSum = getTreeSum(root->left);
+        int rightTreeSum = getTreeSum(root->right);
+        treeSums.push_back(leftTreeSum);
+        treeSums.push_back(rightTreeSum);
+        return root->val + leftTreeSum + rightTreeSum;
+    }
+
+    int maxProduct(TreeNode* root) {
+        totalTreeSum = getTreeSum(root);
+        for(int i = 0; i < treeSums.size(); i++) {
+            maxproductSum = max((totalTreeSum - treeSums[i]) * treeSums[i], maxproductSum);
+        }
+        return maxproductSum % MOD;
+    }
+};
